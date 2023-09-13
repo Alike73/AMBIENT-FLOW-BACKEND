@@ -1,0 +1,29 @@
+
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const routes = require('./SoundsRoutes');
+const cors = require('cors');
+
+mongoose.set('strictQuery', false);
+require('dotenv').config();
+
+const PORT = 4000 || process.env.port;
+
+app.use(express.json())
+app.use(cors())
+
+mongoose
+.connect(process.env.MONGODB_LINK)
+.then(() => console.log("WE ARE CONNECTED TO MONGO!"))
+.catch((err) => console.log("ERROR!"))
+
+app.use(routes)
+
+app.listen(PORT, () => {
+    console.log(`Your server is running at PORT: ${PORT}!`)
+})
+
+// Username:  alimzhanislaAmbientFlow50
+// Password:   Q91M8PVotNZpxFm4
+// Link:       mongodb+srv://alimzhanislaAmbientFlow50:<password>@cluster0.kobwlex.mongodb.net/?retryWrites=true&w=majority
